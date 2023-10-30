@@ -40,10 +40,17 @@
 <body>
     <div class="login-block">
     <?php
-    if(isset($_GET['m'])){
-        echo "<span style='color:red>".$_GET['m']."</span>";
+    session_start();
+    if(isset($_SESSION['error'])){
+        echo "<span style='color:red'>".$_SESSION['error']."</span>";
+        unset($_SESSION['error']);
     }
-
+    
+    if(isset($_SESSION['login']) && !empty($_SESSION['login'])){
+        echo $_SESSION['login']." 歡迎你";
+        echo "<br>";
+        echo "<a href='logout.php'>登出</a>";
+    }else{
     ?>
     <form action="check.php" method="post">
         <div>
@@ -59,6 +66,10 @@
         <input type="reset" value="重置">
         </div>
     </form>
+    <?php
+    }
+    
+    ?>
     </div>
 </body>
 
